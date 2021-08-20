@@ -8,9 +8,13 @@ import Login from '../Pages/Login/Login'
 import List from '../Pages/List/List'
 import Edit from '../components/Edit/Edit'
 import useAuth from '../Hooks/useAuth'
+import SingUp from '../Pages/SingUp/SingUp'
+import Cookies from 'js-cookie'
+import Converter from '../Pages/Converter/Converter'
 
 export default function Routes() {
     const {
+        auth,
         list,setList
     } = useAuth()
 
@@ -22,10 +26,14 @@ export default function Routes() {
         setList(renewList)
     }
 
+    
+
     return (
         <Switch>
             <Route exact path="/" render={()=><Home/>}/>
-            <Route exact path="/login" render={()=><Login/>}/>
+            <Route exact path="/ThermoConverter" render={()=><Converter/>}/>
+            <Route exact path="/login" render={()=>auth? <Home/>:<Login/>}/>
+            <Route exact path="/singup" render={()=>auth? <Home/>:<SingUp/>}/>
             <PrivateRoute exact path="/profile" component={Profile}/>
             <PrivateRoute exact path="/manutencoes" component={List}/>
             <PrivateRoute exact path="/manutencoes/:id" component={(propList)=>{
